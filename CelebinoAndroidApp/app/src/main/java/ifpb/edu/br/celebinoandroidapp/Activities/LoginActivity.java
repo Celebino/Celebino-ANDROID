@@ -10,7 +10,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import ifpb.edu.br.celebinoandroidapp.Classes.User;
+import ifpb.edu.br.celebinoandroidapp.Entities.Login;
+import ifpb.edu.br.celebinoandroidapp.Entities.User;
 import ifpb.edu.br.celebinoandroidapp.Interfaces.ApiInterface;
 import ifpb.edu.br.celebinoandroidapp.R;
 import retrofit2.Call;
@@ -20,7 +21,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
-    public static final String BASE_URL = "";
+    public static final String BASE_URL = "https://www.getpostman.com/collections/ed9d599103cfe8704c17/";
     private EditText mEmailView;
     private EditText mPasswordView;
     private String email;
@@ -65,7 +66,8 @@ public class LoginActivity extends AppCompatActivity {
     }
     private void  loginProcessWithRetrofit(final String email, String password){
         ApiInterface mApiService = this.getInterfaceService();
-        Call<User> mService = mApiService.authenticate(email, password);
+        Login mLoginObject = new Login(email, password);
+        Call<User> mService = mApiService.login(mLoginObject);
         mService.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
@@ -93,7 +95,8 @@ public class LoginActivity extends AppCompatActivity {
     }
     private void signUpProcessWithRetrofit(final String email, String password){
         ApiInterface mApiService = this.getInterfaceService();
-        Call<User> mService = mApiService.registration(email, password);
+        Login mLoginObject = new Login(email, password);
+        Call<User> mService = mApiService.registration(mLoginObject);
         mService.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {

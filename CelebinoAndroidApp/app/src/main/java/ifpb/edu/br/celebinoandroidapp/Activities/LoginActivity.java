@@ -13,6 +13,7 @@ import android.widget.Toast;
 import ifpb.edu.br.celebinoandroidapp.Entities.Login;
 import ifpb.edu.br.celebinoandroidapp.Entities.User;
 import ifpb.edu.br.celebinoandroidapp.Interfaces.ApiInterface;
+import ifpb.edu.br.celebinoandroidapp.Interfaces.ConnectionServer;
 import ifpb.edu.br.celebinoandroidapp.R;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -21,7 +22,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
-    public static final String BASE_URL = "https://www.getpostman.com/collections/ed9d599103cfe8704c17/";
+
     private EditText mEmailView;
     private EditText mPasswordView;
     private String email;
@@ -56,18 +57,14 @@ public class LoginActivity extends AppCompatActivity {
 
 
     }
-    private ApiInterface getInterfaceService() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        final ApiInterface mInterfaceService = retrofit.create(ApiInterface.class);
-        return mInterfaceService;
-    }
-    private void  loginProcessWithRetrofit(final String email, String password){
-        ApiInterface mApiService = this.getInterfaceService();
+
+    private void  loginProcessWithRetrofit(final String email,final  String password){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
         Login mLoginObject = new Login(email, password);
-        Call<User> mService = mApiService.login(mLoginObject);
+        Call<User> mService = ConnectionServer.getInstance().getService().login(mLoginObject);
+
         mService.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
@@ -89,14 +86,16 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 call.cancel();
-                Toast.makeText(LoginActivity.this, "Please check your network connection and internet permission", Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, "Error: "+ t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
+            }
+        }).start();
     }
     private void signUpProcessWithRetrofit(final String email, String password){
-        ApiInterface mApiService = this.getInterfaceService();
+
         Login mLoginObject = new Login(email, password);
-        Call<User> mService = mApiService.registration(mLoginObject);
+        Call<User> mService = ConnectionServer.getInstance().getService().registration(mLoginObject);
         mService.enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {

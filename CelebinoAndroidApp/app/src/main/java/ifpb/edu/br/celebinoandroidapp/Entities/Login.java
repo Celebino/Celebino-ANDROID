@@ -1,11 +1,17 @@
 package ifpb.edu.br.celebinoandroidapp.Entities;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by gabri on 15/04/2017.
  */
 public class Login {
-
+    @SerializedName("email")
+    @Expose
     private String email;
+    @SerializedName("password")
+    @Expose
     private String password;
 
     public Login(){}

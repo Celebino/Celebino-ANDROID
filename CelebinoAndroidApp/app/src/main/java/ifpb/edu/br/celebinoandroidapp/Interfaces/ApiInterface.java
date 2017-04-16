@@ -10,8 +10,8 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 public interface ApiInterface {
-    @POST("user/login/")
+    @POST("user/login")
     Call<User> login(@Body Login login);
-    @POST("user/login/")
+    @POST("user/logi")
     Call<User> registration(@Body Login login);
 }

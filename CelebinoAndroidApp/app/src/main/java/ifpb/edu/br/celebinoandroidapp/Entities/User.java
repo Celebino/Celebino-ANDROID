@@ -1,15 +1,24 @@
 package ifpb.edu.br.celebinoandroidapp.Entities;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by gabri on 15/04/2017.
  */
 public class User {
 
     private Long id;
+
     private String email;
-    private String username;
+
     private String name;
+
     private String password;
+
+    private String username;
+
+
 
     public User(){}
 

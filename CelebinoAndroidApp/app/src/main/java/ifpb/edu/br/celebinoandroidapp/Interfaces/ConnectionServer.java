@@ -12,7 +12,7 @@ public class ConnectionServer {
 
     private static final String URL_BASES =
 
-            "http://10.1.134.37:8080/Celebino/";
+            "http://192.168.1.9:8080/Celebino/";
 
 
     private static ApiInterface service;

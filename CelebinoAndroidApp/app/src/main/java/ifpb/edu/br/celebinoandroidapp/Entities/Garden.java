@@ -73,7 +73,7 @@ public class Garden {
     }
 
     public String toString() {
-        return "Garden [id=" + id + ", User Id=" + user.getId() + ", soilHumidity=" + soilHumidity + ", sunLight=" + sunLight
-                + ", airHumidity=" + airHumidity + ", airTemperature=" + airTemperature + "]";
+        return "Garden " + id+ ": Soil Humidity=" + soilHumidity + ", Sun Light=" + sunLight
+                + ", Air Humidity=" + airHumidity + ", Air Temperature=" + airTemperature ;
     }
 }

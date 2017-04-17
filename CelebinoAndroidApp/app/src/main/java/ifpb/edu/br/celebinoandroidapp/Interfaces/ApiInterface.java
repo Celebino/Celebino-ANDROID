@@ -19,12 +19,12 @@ public interface ApiInterface {
     @POST("user/login")
     Call<User> login(@Body Login login);
 
-    @POST("user/logi")
-    Call<User> registration(@Body Login login);
-
     @GET("garden/user/{id}")
     Call<List<Garden>> getGardens(@Path("id") long id);
 
     @GET("garden/")
     Call<List<Garden>> getAllGardens();
+
+    @POST("user/")
+    Call<User> createUser(@Body User user);
 }

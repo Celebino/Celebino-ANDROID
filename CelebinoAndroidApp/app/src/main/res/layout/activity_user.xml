@@ -3,7 +3,15 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Gardems"
+        android:textAlignment="textEnd"
+        android:textSize="30dp"
+        android:layout_marginTop="30dp"
+        android:background="#5bd233"
+        android:textColor="#158e00"/>
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"

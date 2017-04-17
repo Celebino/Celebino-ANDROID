@@ -29,6 +29,8 @@ public class LoginActivity extends AppCompatActivity {
     private String email;
     private String password;
     private TextView failedLoginMessage;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,9 +53,13 @@ public class LoginActivity extends AppCompatActivity {
         mSignUpButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+                /*
                 email = mEmailView.getText().toString();
                 password = mPasswordView.getText().toString();
                 signUpProcessWithRetrofit(email, password);
+                */
+                Intent siginIntent = new Intent(LoginActivity.this, SiginActivity.class);
+                startActivity(siginIntent);
             }
         });
 
@@ -93,35 +99,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
     }
-    private void signUpProcessWithRetrofit(final String email, String password){
 
-        Login mLoginObject = new Login(email, password);
-        Call<User> mService = ConnectionServer.getInstance().getService().registration(mLoginObject);
-        mService.enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                int returnedResponse = response.code();
-                //showProgress(false);
-                if(returnedResponse == 200){
-                    // redirect to Main Activity page
-
-                    Intent loginIntent = new Intent(LoginActivity.this, UserActivity.class);
-                    loginIntent.putExtra("EMAIL", email);
-                    startActivity(loginIntent);
-                }
-                if(returnedResponse == 404){
-                    // use the registration button to register
-                    failedLoginMessage.setText(getResources().getString(R.string.registration_failed));
-                    mPasswordView.requestFocus();
-                }
-            }
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                call.cancel();
-                Toast.makeText(LoginActivity.this, "Please check your network connection and internet permission", Toast.LENGTH_LONG).show();
-            }
-        });
-    }
 
 }
 

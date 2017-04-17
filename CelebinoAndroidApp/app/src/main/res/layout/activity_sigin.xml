@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#5bd233"
+    tools:context=".Activities.LoginActivity">
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="Cadastro Usuário"
+        android:textSize="30dp"
+        android:layout_marginTop="30dp"
+        android:background="#5bd233"
+        android:textColor="#158e00"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/usernameLabel"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:hint="Username"
+        android:layout_marginTop="40dp"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/nameLabel"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:hint="Nome"
+        android:layout_marginTop="25dp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/emailSg"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:hint="E-mail"
+        android:layout_marginTop="25dp"/>
+
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/senhaSg"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:hint="Senha"
+        android:layout_marginTop="25dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cadastrar"
+        android:id="@+id/siginButton"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:background="#5bd233"
+        android:layout_marginTop="15dp"/>
+
+
+
+
+
+</LinearLayout>

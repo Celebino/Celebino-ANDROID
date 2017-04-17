@@ -75,8 +75,6 @@ public class UserActivity extends Activity {
             }
 
 
-
-
             @Override
             public void onFailure(Call<List<Garden>> call, Throwable t) {
                 call.cancel();

@@ -31,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_login);
         mEmailView = (EditText) findViewById(R.id.emailLabel);
         mPasswordView = (EditText) findViewById(R.id.senhaLabel);
@@ -77,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
                     loginIntent.putExtra("EMAIL", email);
                     startActivity(loginIntent);
                 }
-                if(returnedResponse == 404 || returnedResponse == 401){
+                if(returnedResponse == 404 || returnedResponse == 401 || returnedResponse == 400){
                     // use the registration button to register
                     failedLoginMessage.setText(getResources().getString(R.string.registration_message));
                     mPasswordView.requestFocus();

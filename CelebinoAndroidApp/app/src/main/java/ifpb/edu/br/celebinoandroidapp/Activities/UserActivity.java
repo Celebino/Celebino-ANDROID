@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -27,7 +28,7 @@ public class UserActivity extends Activity {
     private ArrayAdapter<Garden> adapter;
     private  List<Garden> gardens;
     private  ListView listGarden;
-    private int id;
+    private int iduser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +38,26 @@ public class UserActivity extends Activity {
         gardens = new ArrayList<Garden>();
 
         Bundle extras = getIntent().getExtras();
-        long id = extras.getLong("ID");
+        final long iduser = extras.getLong("ID");
+        listar(iduser);
 
-        listar(id);
+        listGarden.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> adapter, View v, int position,
+                                    long arg3)
+            {
 
+                Garden gard = (Garden) listGarden.getItemAtPosition(position);
+                long idg = gard.getId();
+                Intent statusIntent = new Intent(UserActivity.this, StatusActivity.class);
+
+                statusIntent.putExtra("IDG", idg);
+                startActivity(statusIntent);
+                Log.e("ONCLICK : ",gard.getId().toString());
+
+            }
+        });
 
     }
     private void listar(long id){
@@ -55,6 +72,7 @@ public class UserActivity extends Activity {
                     if(response.isSuccess()){
 
                         List<Garden> responseGar = response.body();
+                        Log.e("STATUS",responseGar.toString());
                         gardens.addAll(responseGar);
                         setAdapter(gardens);
 
@@ -88,4 +106,6 @@ public class UserActivity extends Activity {
         adapter = new ArrayAdapter<Garden>(this, android.R.layout.simple_list_item_1, gardens);
         listGarden.setAdapter(adapter);
     }
+
+
 }

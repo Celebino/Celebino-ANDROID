@@ -7,6 +7,7 @@ package ifpb.edu.br.celebinoandroidapp.Interfaces;
 import java.util.List;
 
 import ifpb.edu.br.celebinoandroidapp.Entities.Garden;
+import ifpb.edu.br.celebinoandroidapp.Entities.GardenStatus;
 import ifpb.edu.br.celebinoandroidapp.Entities.Login;
 import ifpb.edu.br.celebinoandroidapp.Entities.User;
 import retrofit2.Call;
@@ -27,4 +28,7 @@ public interface ApiInterface {
 
     @POST("user/")
     Call<User> createUser(@Body User user);
+
+    @GET("gardenstatus/garden/{gardenId}")
+    Call<List<GardenStatus>> getAllGardensStatus(@Path("gardenId") long id);
 }

@@ -3,6 +3,7 @@ package ifpb.edu.br.celebinoandroidapp.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -60,9 +61,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void  loginProcessWithRetrofit(final String email,final  String password){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
+
         Login mLoginObject = new Login(email, password);
         Call<User> mService = ConnectionServer.getInstance().getService().login(mLoginObject);
 
@@ -74,8 +73,10 @@ public class LoginActivity extends AppCompatActivity {
                 //showProgress(false);
                 if(returnedResponse == 200){
                     // redirect to Main Activity page
+                    User user = response.body();
                     Intent loginIntent = new Intent(LoginActivity.this, UserActivity.class);
                     loginIntent.putExtra("EMAIL", email);
+                    loginIntent.putExtra("ID", user.getId());
                     startActivity(loginIntent);
                 }
                 if(returnedResponse == 404 || returnedResponse == 401 || returnedResponse == 400){
@@ -90,8 +91,7 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "Error: "+ t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
-            }
-        }).start();
+
     }
     private void signUpProcessWithRetrofit(final String email, String password){
 
@@ -104,6 +104,7 @@ public class LoginActivity extends AppCompatActivity {
                 //showProgress(false);
                 if(returnedResponse == 200){
                     // redirect to Main Activity page
+
                     Intent loginIntent = new Intent(LoginActivity.this, UserActivity.class);
                     loginIntent.putExtra("EMAIL", email);
                     startActivity(loginIntent);

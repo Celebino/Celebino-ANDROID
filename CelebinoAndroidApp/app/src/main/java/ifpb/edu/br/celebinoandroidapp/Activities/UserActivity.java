@@ -1,6 +1,7 @@
 package ifpb.edu.br.celebinoandroidapp.Activities;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -19,30 +20,32 @@ import ifpb.edu.br.celebinoandroidapp.R;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.Path;
 
 public class UserActivity extends Activity {
     private List<Garden> gardenss = new ArrayList<>();
     private ArrayAdapter<Garden> adapter;
     private  List<Garden> gardens;
+    private  ListView listGarden;
     private int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
-        ListView listGarden = (ListView) findViewById(R.id.listgarden);
+        listGarden = (ListView) findViewById(R.id.listgarden);
         gardens = new ArrayList<Garden>();
-        listar();
-        adapter = new ArrayAdapter<Garden>(this, android.R.layout.simple_list_item_1, gardens);
-        listGarden.setAdapter(adapter);
+
+        Bundle extras = getIntent().getExtras();
+        long id = extras.getLong("ID");
+
+        listar(id);
+
 
     }
-    private void listar(){
-        id = 1;
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-        Call<List<Garden>> call = ConnectionServer.getInstance().getService().getAllGardens();
+    private void listar(long id){
+
+        Call<List<Garden>> call = ConnectionServer.getInstance().getService().getGardens(id);
         call.enqueue(new Callback<List<Garden>>() {
             @Override
             public void onResponse(Call<List<Garden>> call, Response<List<Garden>> response) {
@@ -53,9 +56,8 @@ public class UserActivity extends Activity {
 
                         List<Garden> responseGar = response.body();
                         gardens.addAll(responseGar);
-                        for(Garden g : responseGar){
-                            Log.i("GARDEN : ",g.toString());
-                        }
+                        setAdapter(gardens);
+
                     }
                     else{
 
@@ -81,9 +83,11 @@ public class UserActivity extends Activity {
                 Toast.makeText(UserActivity.this, "Error: "+ t.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
-            }
-        }).start();
 
     }
 
+    public  void setAdapter(List<Garden> gardens){
+        adapter = new ArrayAdapter<Garden>(this, android.R.layout.simple_list_item_1, gardens);
+        listGarden.setAdapter(adapter);
+    }
 }
